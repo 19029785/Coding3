@@ -7,13 +7,13 @@ import time
 
 # Constants
 ml = 150  # Left margin for the tools area
-max_x, max_y = 250 + ml, 50  # Maximum coordinates for tools area
-curr_tool = "select tool"  # Current selected tool
-time_init = True  # Flag to track tool selection time
-rad = 40  # Initial radius for tool selection circle
-var_inits = False  # Flag to track tool-specific variables initialization
-thick = 4  # Thickness of drawing lines/shapes
-prevx, prevy = 0, 0  # Previous x, y coordinates
+max_x, max_y = 250 + ml, 50  // Maximum coordinates for tools area
+curr_tool = "select tool"  // Current selected tool
+time_init = True  // Flag to track tool selection time
+rad = 40  // Initial radius for tool selection circle
+var_inits = False  // Flag to track tool-specific variables initialization
+thick = 4  // Thickness of drawing lines/shapes
+prevx, prevy = 0, 0  // Previous x, y coordinates
 
 # Get tools function
 def getTool(x):
