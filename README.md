@@ -1,5 +1,5 @@
 # Coding3
-
+#Import everything we need
 import mediapipe as mp
 import cv2
 import numpy as np
