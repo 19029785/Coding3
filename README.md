@@ -90,7 +90,7 @@ while True:
                 time_init = False
             ptime = time.time()  // Get the current time for tool selection timing
 
-``
+```
 ### Draw selection circle on the frame
 ```
                 cv2.circle(frm, (x, y), rad, (0, 255, 255), 2)
@@ -117,9 +117,10 @@ while True:
                 if index_raised(yi, y9): //Check if the index finger is raised
            // Draw line on the mask
                     cv2.line(mask, (prevx, prevy), (x
-
 ```
+
 ## Reference
+
 Tutorial Video I have watched
 
 Ivan Goncharov - Custom Hand Gesture Recognition with Hand Landmarks Using Google’s Mediapipe + OpenCV in Python
