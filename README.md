@@ -1,6 +1,6 @@
 # Coding3 Project :exploding_head:
 ## Statement
-For this project, libraries used are mediapipe and opencv also bit of numpy. You can draw without mouse or keyboard.
+For this project, libraries used are mediapipe and opencv,and also bit of numpy. You can draw without mouse or keyboard.
 I have used mediapipe's solution for hand landmark detection.
 It detects 21 different keypoints. And you can draw the paint with 3 keypoints of them.
 This project will capture your hand's movement, and you can draw on the air canvas with your hand as a pen.
