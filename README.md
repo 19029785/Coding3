@@ -105,8 +105,11 @@ while True:
             else:
                 time_init = True
                 rad = 40
-
-            if curr_tool == "draw":
+```
+#### 'Draw' section
+```            
+          // If the current tool is draw
+           if curr_tool == "draw":
            // Get index finger and thumb tip coordinates
                 xi, yi = int(i.landmark[12].x * 640), int(i.landmark[12].y * 480)
                 y9 = int(i.landmark[9].y * 480)
@@ -115,10 +118,105 @@ while True:
            // Check if index finger is raised
 
                 if index_raised(yi, y9): //Check if the index finger is raised
-           // Draw line on the mask
-                    cv2.line(mask, (prevx, prevy), (x
-```
+           // Draw line on the mask  
+					cv2.line(mask, (prevx, prevy), (x, y), 0, thick)
+					prevx, prevy = x, y
 
+				else:
+					prevx = x
+					prevy = y
+```
+#### 'Line' section
+```
+           // If the current tool is line
+			elif curr_tool == "line":
+				xi, yi = int(i.landmark[12].x*640), int(i.landmark[12].y*480)   // Get the coordinates of finger landmarks
+				y9  = int(i.landmark[9].y*480)
+
+				if index_raised(yi, y9):
+					if not(var_inits):
+						xii, yii = x, y
+						var_inits = True
+
+					cv2.line(frm, (xii, yii), (x, y), (50,152,255), thick)
+
+				else:
+					if var_inits:
+						cv2.line(mask, (xii, yii), (x, y), 0, thick)
+						var_inits = False
+```
+#### 'Rectangle' section
+```
+           // If the current tool is rectangle
+			elif curr_tool == "rectangle":
+				xi, yi = int(i.landmark[12].x*640), int(i.landmark[12].y*480)   // Get the coordinates of finger landmarks
+				y9  = int(i.landmark[9].y*480)
+
+				if index_raised(yi, y9):
+					if not(var_inits):
+						xii, yii = x, y
+						var_inits = True
+
+					cv2.rectangle(frm, (xii, yii), (x, y), (0,255,255), thick)
+
+				else:
+					if var_inits:
+						cv2.rectangle(mask, (xii, yii), (x, y), 0, thick)
+						var_inits = False
+```
+#### 'Circle' section
+```
+           // If the current tool is circle
+			elif curr_tool == "circle":
+				xi, yi = int(i.landmark[12].x*640), int(i.landmark[12].y*480)   // Get the coordinates of finger landmarks
+				y9  = int(i.landmark[9].y*480)
+
+				if index_raised(yi, y9):
+					if not(var_inits):
+						xii, yii = x, y
+						var_inits = True
+
+					cv2.circle(frm, (xii, yii), int(((xii-x)**2 + (yii-y)**2)**0.5), (255,255,0), thick)
+
+				else:
+					if var_inits:
+						cv2.circle(mask, (xii, yii), int(((xii-x)**2 + (yii-y)**2)**0.5), (0,255,0), thick)
+						var_inits = False
+```
+#### 'Eraser' section
+```
+           // If the current tool is eraser
+			elif curr_tool == "erase":
+				xi, yi = int(i.landmark[12].x*640), int(i.landmark[12].y*480)     // Get the coordinates of finger landmarks
+				y9  = int(i.landmark[9].y*480)
+
+				if index_raised(yi, y9):
+					cv2.circle(frm, (x, y), 30, (0,0,0), -1)
+					cv2.circle(mask, (x, y), 30, 255, -1)
+
+
+    //Draw a white circle on the mask (eraser)
+	op = cv2.bitwise_and(frm, frm, mask=mask)
+```
+```
+	frm[:, :, 1] = op[:, :, 1]
+	frm[:, :, 2] = op[:, :, 2]
+
+// Overlay the 'tools' image onto the frame in a specific region
+	frm[:max_y, ml:max_x] = cv2.addWeighted(tools, 0.7, frm[:max_y, ml:max_x], 0.3, 0)
+
+	cv2.putText(frm, curr_tool, (270+ml,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2)
+	cv2.imshow("paint app", frm)
+    
+// Wait for the user to press the Esc key (ASCII code 27)
+	if cv2.waitKey(1) == 27:
+		cv2.destroyAllWindows()
+		cap.release()
+		break
+ 
+ ```
+ 
+ 
 ## Reference
 
 Tutorial Video I have watched
