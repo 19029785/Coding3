@@ -5,6 +5,7 @@ I have used mediapipe's solution for hand landmark detection.
 It detects 21 different keypoints. And you can draw the paint with 3 keypoints of them.
 This project will capture your hand's movement, and you can draw on the air canvas with your hand as a pen.
 
+Here is demo video: https://youtu.be/P6OClikTveI
 ## Coding Part
 ### import everything
 ```
