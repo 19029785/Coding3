@@ -73,48 +73,50 @@ while True:
 ```    rgb = cv2.cvtColor(frm, cv2.COLOR_BGR2RGB)
 
     # Process hand landmarks using Mediapipe
-    op = hand_landmark.process(rgb)
+    op = hand_landmark.process(rgb) // Process hand landmarks using Mediapipe
 
-    if op.multi_hand_landmarks:
+    if op.multi_hand_landmarks:  // Check if hand landmarks are detected
         for i in op.multi_hand_landmarks:
             # Draw hand landmarks on the frame
             draw.draw_landmarks(frm, i, hands.HAND_CONNECTIONS)
-            x, y = int(i.landmark[8].x * 640), int(i.landmark[8].y * 480)
+            x, y = int(i.landmark[8].x*640), int(i.landmark[8].y*480)  // Get coordinates of the tip of the index finger
 ```
 ### Check if hand is inside the tools area
 ```
-    if x < max_x and y < max_y and x > ml:
-                if time_init:
-                    ctime = time.time()
-                    time_init = False
-                ptime = time.time()
-```
+    if x < max_x and y < max_y and x > ml:  // Check if the tip of the finger is within the tools area
+            if time_init:
+                ctime = time.time()  // Record the current time for tool selection timing
+                time_init = False
+            ptime = time.time()  // Get the current time for tool selection timing
+
+``
 ### Draw selection circle on the frame
 ```
                 cv2.circle(frm, (x, y), rad, (0, 255, 255), 2)
                 rad -= 1
 
-           # Check if enough time has passed for tool selection
-                if (ptime - ctime) > 0.8:
-                    curr_tool = getTool(x)
-                    print("Your current tool is set to:", curr_tool)
-                    time_init = True
-                    rad = 40
+           // Check if enough time has passed for tool selection
+                if (ptime - ctime) > 0.8:  // Check if enough time has passed for tool selection
+                      curr_tool = getTool(x)  // Get the current selected tool based on the finger position
+                      print("Your current tool is set to:", curr_tool)
+                      time_init = True  // Reset the tool selection timing
+                      rad = 40  # Reset the radius of the selection circle
             else:
                 time_init = True
                 rad = 40
 
             if curr_tool == "draw":
-           # Get index finger and thumb tip coordinates
+           // Get index finger and thumb tip coordinates
                 xi, yi = int(i.landmark[12].x * 640), int(i.landmark[12].y * 480)
                 y9 = int(i.landmark[9].y * 480)
 
 
-           # Check if index finger is raised
+           // Check if index finger is raised
 
-                if index_raised(yi, y9):
-           # Draw line on the mask
+                if index_raised(yi, y9): //Check if the index finger is raised
+           // Draw line on the mask
                     cv2.line(mask, (prevx, prevy), (x
+
 ```
 ## Reference
 Tutorial Video I have watched
