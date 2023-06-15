@@ -116,3 +116,11 @@ while True:
            # Draw line on the mask
                     cv2.line(mask, (prevx, prevy), (x
 ```
+## Reference
+Tutorial Video I have watched
+
+Ivan Goncharov - Custom Hand Gesture Recognition with Hand Landmarks Using Google’s Mediapipe + OpenCV in Python
+https://www.youtube.com/watch?v=a99p_fAr6e4
+
+murtazasworkshop - AI Virtual Mouse | OpenCV Python | Computer Vision
+https://www.youtube.com/watch?v=8gPONnGIPgw&t=11s
